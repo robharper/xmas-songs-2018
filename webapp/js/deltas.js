@@ -38,10 +38,10 @@ var subBarColor = d3.scaleLinear()
 //
 // Table
 //
-var tbody = d3.select('#changes-table')
-  .selectAll('table')
+var tbody = d3.select('#changes-table tbody')
+  .selectAll('tr')
   .data(data2018)
-  .enter().append('tbody');
+  .enter();
   
 var trSong = tbody.append('tr')
   .attr('class', 'song-row')
@@ -93,45 +93,56 @@ rankTd.append('span')
 //
 // Details
 //
-var subRow = tbody.selectAll('tr.song-details')
-  .data(function(d) { 
-    d.artists_2018.sort(function(a1, a2) { return a2[1] - a1[1]; });
-    return d.artists_2018; 
-  })
-    .enter()
-    .append('tr').attr('class', 'song-details')
+function updateDetails($element, d) {
+  var tooltipOffset;
+  if (window.document.body.offsetWidth <= 420) {
+    tooltipOffset = $element.offsetTop + $element.offsetHeight;
+  } else {
+    tooltipOffset = $element.offsetTop;
+  }
 
-subRow.append('td')
+  d.artists_2018.sort(function(a1, a2) { return a2[1] - a1[1]; });
 
-subRow.append('td')
-    .attr('class', 'sub-bar-label')
-    .text(function(a) { return a[0]; });
+  var tooltip = d3.select('#changes-details')
+    .style('top', tooltipOffset+'px')
+    .style('visibility', 'visible')
 
-subRow.append('td')
-        .attr('class', 'sub-bar-container')
-      .append('span')
-        .attr('class', 'sub-bar-bar')
-        .style('width', function(d) { 
-          return subBarScale(d[1]) + '%' 
-        })
-        .style('background-color', function(d) {
-          return subBarColor(d[1]);
-        })
+  var selection = tooltip.select('table').selectAll('tr')
+      .data(d.artists_2018, function(d) { return d[0]+d[1]; })
 
-subRow.append('td')
-      .attr('class', 'sub-bar-count')
-      .text(function(a) { return a[1]; });
+  var row = selection.enter()
+      .append('tr').attr('class', 'song-details')
+  
+  row.append('td').attr('class', 'sub-bar-padding')
 
-//
-// Tooltip
-//
+  row.append('td')
+      .attr('class', 'sub-bar-label')
+      .text(function(a) { return a[0]; });
+
+  row.append('td')
+          .attr('class', 'sub-bar-container')
+        .append('span')
+          .attr('class', 'sub-bar-bar')
+          .style('width', function(d) { 
+            return subBarScale(d[1]) + '%' 
+          })
+          .style('background-color', function(d) {
+            return subBarColor(d[1]);
+          })
+
+  row.append('td')
+        .attr('class', 'sub-bar-count')
+        .text(function(a) { return a[1]; });
+
+  selection.exit().remove();
+}
 
 function handleMouseOver(song) {
-  var element = this;
-
+  updateDetails(this, song);
 }
 
 function handleMouseOut(song) {
-
+  d3.select('#changes-details')
+    .style('visibility', 'hidden');
 }
 })();
