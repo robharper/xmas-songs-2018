@@ -68,7 +68,7 @@ song_2017 = (data_2017
 
 totals = (
   petl.outerjoin(song_2018, song_2017, 'song_title_id')
-  .select(lambda rec: (rec['count_2018'] or 0) > 2 or (rec['count_2017'] or 0) > 2)
+  .select(lambda rec: (rec['count_2018'] or 0) >= 1 or (rec['count_2017'] or 0) > 2)
   .addfield('song_title', lambda rec: rec.song_title_2018 or rec.song_title_2017)
   .cutout('song_title_2018', 'song_title_2017', 'song_title_id')
 )

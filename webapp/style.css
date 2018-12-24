@@ -29,7 +29,7 @@ table > thead > tr > th {
 
 table thead th {
   vertical-align: bottom;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
 }
 
 .icon {
@@ -47,6 +47,7 @@ table thead th {
 #top-list {
   width: 100%;
   position: relative;
+  padding-bottom: 10em;
 }
 #changes-table {
   width: 70%;
@@ -61,19 +62,29 @@ table thead th {
   min-height: 2.4rem;
   visibility: hidden;
 }
+#changes-details.details-removed {
+  background: #f4e2e2;
+}
+
+th.rank, th.song-rank-change {
+  cursor: pointer;
+}
+th.selected {
+  text-decoration: underline;
+}
 
 .rank {
   width: 8%;
 }
 .song-name {
-  width: 65%;
+  width: 68%;
 }
 .play-count {
   width: 12%;
-  font-weight: bold;
+  text-align: right;
 }
 .song-rank-change {
-  width: 15%;
+  width: 12%;
 }
 
 .sub-bar-padding {
@@ -91,25 +102,39 @@ table thead th {
 }
 
 
-tbody tr:hover {
+tbody tr:hover td, tbody tr.selected td {
   background: #f5f5f5;
 }
 
+tbody tr.song-removed:hover td {
+  background: #f4e2e2;
+}
+
+.song-rank-change {
+  text-align: right;
+}
 .song-rank-change-value {
   display: inline-block;
-  min-width: 2.2em;
+  min-width: 2.5em;
 }
 .rank, .song-rank-change-value {
   text-align: right;
 }
-td.rank {
-  color: #999;
-}
 .song-rank-change-value {
   color: #aaa;
 }
-.song-rank-change-new {
+
+.song-added td {
+  background: #f0ffee;
+}
+.song-added .song-rank-change-value {
   font-weight: bold;
+}
+.song-removed td {
+  background: #fee;
+}
+.song-removed .play-count {
+  color: #d00;
 }
 
 td.song-name {
@@ -138,9 +163,12 @@ td.song-name {
   table > tbody > tr > td {
     padding: .3rem;
   }
-  tbody tr:hover {
+  tbody tr:hover td {
     background: #eee;
   }
+  tbody tr.song-removed:hover td {
+    background: #eedbdb;
+  }  
   #changes-table {
     width: 100%;
   }
