@@ -3,7 +3,7 @@
 }
 body {
   font-family: 'Lato', sans-serif;
-  margin: 24px auto;
+  margin: 40px auto;
   max-width: 1024px;
   padding: 0 24px;
 }
@@ -136,7 +136,7 @@ tbody tr.song-removed:hover td {
 }
 .song-added .song-rank-change-value {
   font-weight: bold;
-  color: #ac9;
+  color: #9b8;
 }
 .song-removed td {
   background: #fee;
@@ -146,7 +146,7 @@ tbody tr.song-removed:hover td {
 }
 .song-removed .song-rank-change-value {
   font-weight: bold;
-  color: #ca9;
+  color: #b98;
 }
 
 td.song-name {
@@ -167,13 +167,13 @@ td.song-name {
 /* Responsive */
 @media only screen and (max-device-width: 420px) {
   body {
-    margin: 24px auto;
-    padding: 0 10px;
+    margin: 42px auto;
+    padding: 0 16px;
     font-size: 0.8em;
   }
   table > thead > tr > th,
   table > tbody > tr > td {
-    padding: .3rem;
+    padding: .4rem .3rem;
   }
   tbody tr:hover td {
     background: #eee;
@@ -187,6 +187,7 @@ td.song-name {
   #changes-details {
     width: 100%;
     padding: 1em 0;
+    color: #555;
   } 
   #changes-details tr td {
     padding: 0.1rem .3rem;
@@ -195,26 +196,26 @@ td.song-name {
     width: 10%;
   }
   .song-name {
-    width: 63%;
+    width: 60%;
   }
   .play-count {
     width: 10%;
   }
   .song-rank-change {
-    width: 17%;
+    width: 20%;
   }
 
   .sub-bar-padding {
     width: 10%;
   }
   .sub-bar-label {
-    width: 40%;
+    width: 50%;
   }
   .sub-bar-container {
-    width: 23%;
+    width: 50%;
   }
   .sub-bar-count {
-    width: 27%;
+    width: 10%;
   }
   
 }

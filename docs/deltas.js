@@ -1,6 +1,8 @@
 
 (function() {
 
+var isMobile = window.document.body.offsetWidth <= 420;
+
 data.sort(function(a, b) {
   return (a.rank_2018 || 1000) - (b.rank_2018 || 1000)
 });
@@ -46,9 +48,16 @@ function updateAll(data) {
         clazz = 'song-added';
       }
       return clazz + ' song-row';
-    })
+    });
+
+if (isMobile) {
+  trSong
+    .on('click', toggleDetails)
+} else {
+  trSong
     .on('mouseover', handleMouseOver)
     .on('mouseout', handleMouseOut);
+}
 
   trSong.append('td').attr('class', 'rank')
     .text(function(d, i) { return d.rank_2018; });
@@ -139,7 +148,7 @@ d3.selectAll('th.song-rank-change')
 //
 function updateDetails($element, d) {
   var tooltipOffset;
-  if (window.document.body.offsetWidth <= 420) {
+  if (isMobile) {
     tooltipOffset = $element.offsetTop + $element.offsetHeight;
   } else {
     tooltipOffset = $element.offsetTop;
@@ -189,12 +198,24 @@ function handleMouseOver(song) {
   for (var i=0; i<nodes.length; i++) {
     nodes[i].classList.remove('selected');
   }
+  d3.select(this).nodes()[0].classList.add('selected');
   
   updateDetails(this, song);
+
+  d3.event.preventDefault();
 }
 
 function handleMouseOut(song) {
   d3.select('#changes-details')
     .style('visibility', 'hidden');
+}
+
+function toggleDetails(song) {
+  var active = d3.select(this).nodes()[0].classList.contains('selected');
+  if (active) {
+    handleMouseOut.call(this, song);
+  } else {
+    handleMouseOver.call(this, song);
+  }
 }
 })();
