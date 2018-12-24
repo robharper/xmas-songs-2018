@@ -7,6 +7,9 @@ body {
   max-width: 1024px;
   padding: 0 24px;
 }
+a, a:visited {
+  color: #35c;
+}
 
 table {
   width: 100%;
@@ -68,6 +71,10 @@ table thead th {
 
 th.rank, th.song-rank-change {
   cursor: pointer;
+  text-decoration: none;
+}
+th.rank a, th.song-rank-change a {
+  text-decoration: none;
 }
 th.selected {
   text-decoration: underline;
@@ -129,12 +136,17 @@ tbody tr.song-removed:hover td {
 }
 .song-added .song-rank-change-value {
   font-weight: bold;
+  color: #ac9;
 }
 .song-removed td {
   background: #fee;
 }
 .song-removed .play-count {
   color: #d00;
+}
+.song-removed .song-rank-change-value {
+  font-weight: bold;
+  color: #ca9;
 }
 
 td.song-name {

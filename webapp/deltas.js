@@ -35,6 +35,9 @@ function updateAll(data) {
     
   var trSong = selection.enter()
     .append('tr')
+    .attr('id', function(d) {
+      return d.song_title.replace(/\W/g, '-');
+    })
     .attr('class', function(d) {
       var clazz = '';
       if (d.rank_change <= -1000) {

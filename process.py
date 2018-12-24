@@ -26,7 +26,8 @@ name_changes = {
   'The Chipmunk Song (feat. Alvin) [Christmas Don\'t Be Late]': 'The Chipmunk Song',
   'Walkin In A Winter Wonderland': 'Winter Wonderland',
   'Santa Claus Is Coming to Town (Intro)': 'Santa Claus Is Coming to Town',
-  'Santa Claus Is Comin\' to Town': 'Santa Claus Is Coming to Town'
+  'Santa Claus Is Comin\' to Town': 'Santa Claus Is Coming to Town',
+  'Have Yourself Merry Little Christmas': 'Have Yourself A Merry Little Christmas'
 }
 data_2017 = data_2017.convert('song_title', name_changes)
 data_2018 = data_2018.convert('song_title', name_changes)
