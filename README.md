@@ -1,4 +1,7 @@
 # Christmas Songs 2018
+
+It runs here: https://robharper.github.io/xmas-songs-2018
+
 This list summarizes all songs played on Toronto's CHFI All-Christmas radio station between Dec 7 and Dec 23, 2018.
 I've compared relative rankings to the same data collected in 2017 to show how song choices change year-to-year.
 Hover over (or tap) a song to see the breakdown by artist. Songs dropped from the playlist this year (e.g. 
