@@ -14,6 +14,6 @@ curl http://newplayer.rogersradio.ca/CHFI/widget/recently_played?num_per_page=10
 
 ## Web App
 ```
-cd webapp
+cd docs
 http-server
 ```
