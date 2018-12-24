@@ -7,6 +7,10 @@ body {
   max-width: 1024px;
   padding: 0 24px;
 }
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
 a, a:visited {
   color: #35c;
 }
