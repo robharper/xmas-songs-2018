@@ -30,7 +30,7 @@ table > tbody > tr > td {
 table > thead > tr > th {
   vertical-align: bottom;
 }
-#changes-details tr td {
+.details tr td {
   padding: .3rem;
 }
 
@@ -51,15 +51,18 @@ table thead th {
   position: relative;
 }
 
-#top-list {
+#top-list, #artist-list {
   width: 100%;
   position: relative;
-  padding-bottom: 10em;
 }
-#changes-table {
+h2:not(:first-child) {
+  margin-top: 3em;
+}
+
+.table {
   width: 70%;
 }
-#changes-details {
+.details {
   position: absolute;
   top: 0;
   right: 0;
@@ -69,7 +72,7 @@ table thead th {
   min-height: 2.4rem;
   visibility: hidden;
 }
-#changes-details.details-removed {
+.details.details-removed {
   background: #f4e2e2;
 }
 
@@ -175,6 +178,9 @@ td.song-name {
     padding: 0 16px;
     font-size: 0.8em;
   }
+  #artist-list {
+    padding-bottom: 10em;
+  }
   table > thead > tr > th,
   table > tbody > tr > td {
     padding: .4rem .3rem;
@@ -188,12 +194,12 @@ td.song-name {
   #changes-table {
     width: 100%;
   }
-  #changes-details {
+  .details {
     width: 100%;
     padding: 1em 0;
     color: #555;
   } 
-  #changes-details tr td {
+  .details tr td {
     padding: 0.1rem .3rem;
   }
   .rank {

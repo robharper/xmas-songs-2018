@@ -1,5 +1,5 @@
 
-(function() {
+function visualize(data, mainId, detailsId, mainField, maxSub, sub2018, sub2017) {
 
 var isMobile = window.document.body.offsetWidth <= 420;
 
@@ -7,7 +7,7 @@ data.sort(function(a, b) {
   return (a.rank_2018 || 1000) - (b.rank_2018 || 1000)
 });
 
-var maxArtist = 47; //Math.max.apply(null, data.flatMap(function(s) { return (s.artists_2018 || []).map(function(a) { return a[1]}) }));
+var maxSub = 47;
 
 var rankQuant = d3.scaleQuantize()
   .domain([0, 20])
@@ -19,26 +19,28 @@ var color = d3.scaleLinear()
   .range(['red', '#eee', 'green']);
 
 var subBarScale = d3.scaleLinear()
-  .domain([0, maxArtist])
+  .domain([0, maxSub])
   .range([0, 100])
 
 var subBarColor = d3.scaleLinear()
-.domain([0, maxArtist])
+.domain([0, maxSub])
 .range(['rgb(140, 130, 130)', 'rgb(184, 65, 51)'])
 
 
 //
 // Table
 //
-function updateAll(data) {
-  var selection = d3.select('#changes-table tbody')
+function updateAll() {
+  var selection = d3.select(mainId + ' tbody')
     .selectAll('tr')
-    .data(data, function(d) { return d.song_title});
+    .data(data, function(d) { 
+      return d[mainField];
+    });
     
   var trSong = selection.enter()
     .append('tr')
     .attr('id', function(d) {
-      return d.song_title.replace(/\W/g, '-');
+      return d[mainField].replace(/\W/g, '-');
     })
     .attr('class', function(d) {
       var clazz = '';
@@ -96,7 +98,7 @@ if (isMobile) {
   trSong.append('td')
     .attr('class', 'song-name')
     .attr('colspan', '2')
-    .text(function(d) { return d.song_title; })
+    .text(function(d) { return d[mainField]; })
 
   trSong.append('td').attr('class', 'play-count')
     .text(function(d) { 
@@ -110,9 +112,9 @@ if (isMobile) {
   selection.exit().remove();
 }
 
-updateAll(data);
+updateAll();
 if (window.document.body.offsetWidth > 420) {
-  var firstItem = d3.select('#changes-table tbody tr').nodes()[0];
+  var firstItem = d3.select(mainId + ' tbody tr').nodes()[0];
   firstItem.classList.add('selected');
   updateDetails(firstItem, data[0]);
 }
@@ -122,12 +124,12 @@ d3.selectAll('th.rank')
     data.sort(function(a, b) {
       return (a.rank_2018 || 1000) - (b.rank_2018 || 1000)
     });
-    d3.select('#changes-table tbody').html('');
+    d3.select(mainId + ' tbody').html('');
 
     d3.select(this).attr('class', 'rank selected');
     d3.select('th.song-rank-change').attr('class', 'song-rank-change');
     
-    updateAll(data);
+    updateAll();
   })
 
 d3.selectAll('th.song-rank-change')
@@ -135,12 +137,12 @@ d3.selectAll('th.song-rank-change')
     data.sort(function(a, b) {
       return b.rank_change - a.rank_change;
     });
-    d3.select('#changes-table tbody').html('');
+    d3.select(mainId + ' tbody').html('');
 
     d3.select(this).attr('class', 'song-rank-change selected');
     d3.select('th.rank').attr('class', 'rank');
 
-    updateAll(data);
+    updateAll();
   })
 
 //
@@ -154,14 +156,14 @@ function updateDetails($element, d) {
     tooltipOffset = $element.offsetTop;
   }
 
-  var artists = d.artists_2018 ? d.artists_2018 : d.artists_2017;
+  var artists = d[sub2018] ? d[sub2018] : d[sub2017];
 
   artists.sort(function(a1, a2) { return a2[1] - a1[1]; });
 
-  var tooltip = d3.select('#changes-details')
+  var tooltip = d3.select(detailsId)
     .style('top', tooltipOffset+'px')
     .style('visibility', 'visible')
-    .attr('class', d.artists_2018 ? '' : 'details-removed')
+    .attr('class', d[sub2018] ? 'details' : 'details details-removed')
 
   var selection = tooltip.select('table').selectAll('tr')
       .data(artists, function(d) { return d[0]+d[1]; })
@@ -194,7 +196,7 @@ function updateDetails($element, d) {
 }
 
 function handleMouseOver(song) {
-  var nodes = d3.selectAll('#changes-table tr').nodes();
+  var nodes = d3.selectAll(mainId + ' tr').nodes();
   for (var i=0; i<nodes.length; i++) {
     nodes[i].classList.remove('selected');
   }
@@ -206,7 +208,7 @@ function handleMouseOver(song) {
 }
 
 function handleMouseOut(song) {
-  d3.select('#changes-details')
+  d3.select(detailsId)
     .style('visibility', 'hidden');
 }
 
@@ -218,4 +220,4 @@ function toggleDetails(song) {
     handleMouseOver.call(this, song);
   }
 }
-})();
+}
